@@ -179,4 +179,19 @@ describe('Plugin tests', () => {
     expect(errors.value).toEqual(errorData)
     expect(mockCatchCb).toHaveBeenCalledWith(error)
   })
+
+  it('should correctly pass args to cb function', async () => {
+    const mockArgs = { id: 1, name: 'Test' }
+    const mockCb = vi.fn().mockResolvedValue(mockArgs)
+
+    install(app)
+
+    const { call } = useApiCall({
+      cb: mockCb,
+    })
+
+    await call(mockArgs)
+
+    expect(mockCb).toHaveBeenCalledWith(mockArgs)
+  })
 })

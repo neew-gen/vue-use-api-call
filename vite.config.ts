@@ -19,15 +19,14 @@ export default defineConfig({
     }),
     dts({
       tsconfigPath: 'tsconfig.build.json',
-      include: ['src/**/*.ts', 'src/**/*.tsx'],
+      include: ['lib'],
     }),
   ],
   build: {
     emptyOutDir: true,
     lib: {
-      entry: resolve(__dirname, 'src/index.ts'),
-      name: 'index',
-      fileName: 'index',
+      entry: resolve(__dirname, 'lib/main.ts'),
+      formats: ['es'],
     },
     rollupOptions: {
       external: ['vue'],

@@ -1,4 +1,4 @@
-import type { TDefaultErrorCb } from '../types'
+import type { TDefaultErrorCb } from "./types"
 
 let defaultErrorCb: TDefaultErrorCb | null = null
 

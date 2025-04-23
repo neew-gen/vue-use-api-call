@@ -1,7 +1,7 @@
 import type { App } from 'vue'
-import { useApiCall } from './lib/use-api-call'
-import { setDefaultErrorCb } from './lib/default-error-handler'
 import type { TPluginOptions } from './types'
+import { setDefaultErrorCb } from './default-error-handler'
+import { useApiCall } from './use-api-call'
 
 export const install = (app: App, options?: TPluginOptions) => {
   if (options?.defaultErrorCb) {

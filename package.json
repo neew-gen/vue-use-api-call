@@ -66,5 +66,5 @@
     "url": "https://github.com/neew-gen/vue-use-api-call/issues"
   },
   "homepage": "https://github.com/neew-gen/vue-use-api-call#readme",
-  "description": "A Vue 3 composable for making API calls with built-in loading, error handling, and caching"
+  "description": "A Vue 3 composable for making easy API calls with built-in loading state."
 }

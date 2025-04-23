@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { createApp } from 'vue'
-import { install, useApiCall } from '../lib/main'
+import { install, useApiCall } from '../lib'
 import { setDefaultErrorCb } from '../lib/default-error-handler'
 describe('Plugin tests', () => {
   let app: ReturnType<typeof createApp>

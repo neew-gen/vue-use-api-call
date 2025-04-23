@@ -18,6 +18,7 @@ export default defineConfig({
       vueTsc: true,
     }),
     dts({
+      tsconfigPath: 'tsconfig.build.json',
       include: ['src/**/*.ts', 'src/**/*.tsx'],
     }),
   ],

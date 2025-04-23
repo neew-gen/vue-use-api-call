@@ -15,6 +15,7 @@ export function useApiCall<Args = undefined>({
     try {
       isLoading.value = true
       await cb(args as Args)
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
       if (catchCb) {
         await catchCb(e)

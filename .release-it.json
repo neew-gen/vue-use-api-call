@@ -5,7 +5,8 @@
     "commitMessage": "release: v${version}",
     "tag": true,
     "tagName": "v${version}",
-    "tagAnnotation": "Release v${version}"
+    "tagAnnotation": "Release v${version}",
+    "pushArgs": "--follow-tags -o ci.skip"
   },
   "github": {
     "release": true,

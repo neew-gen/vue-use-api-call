@@ -11,9 +11,6 @@
     "noEmit": true,
     "skipLibCheck": true,
     "verbatimModuleSyntax": true,
-    "declaration": true,
-    "declarationDir": "./dist",
-    "emitDeclarationOnly": true,
 
     /* Linting */
     "strict": true,

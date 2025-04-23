@@ -7,7 +7,7 @@ export function useApiCall<Args = undefined, Data = void, Errors = void>({
   defaultLoading = false,
   catchCb,
   finallyCb,
-}: TApiCallArgs<Args, Errors>) {
+}: TApiCallArgs<Args, Data, Errors>) {
   const isLoading = ref(defaultLoading)
   const data = ref({} as Data)
   const errors = ref({} as Errors)

@@ -73,6 +73,32 @@ doSmth.call()
 
 ```
 
+### Fetching data
+
+```vue
+<template>
+  <div>
+    <div v-if="isLoading">Loading...</div>
+    <div>{{ data }}</div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import { useApiCall } from 'vue-use-api-call'
+
+// Data will be auto typed depends on type of fetching result
+const { isLoading, call, data } = useApiCall({
+  cb: async () => {
+    // Result of fetching will be stored in data variable
+    return await fetch('https://api.example.com/fetch-smth')
+  }
+})
+
+call()
+</script>
+
+```
+
 ### Init as plugin (optional)
 Plugin initialization is optional and is needed when you want to set up a global error handler that will be used when no `catchCb` is provided.
 
@@ -113,6 +139,25 @@ const { isLoading, call } = useApiCall({
 </script>
 ```
 
+### With Errors Variable
+
+```vue
+<script setup lang="ts">
+import { useApiCall } from 'vue-use-api-call'
+
+// Errors variable will be auto typed depends on type of catchCb returning value
+const { isLoading, call, errors } = useApiCall({
+  cb: async () => {
+    await fetch('https://api.example.com/do-smth')
+  },
+  catchCb: (e) => {
+    // You can convert error to array or what you want
+    return yourAmazingErrorConverter(e)
+  }
+})
+</script>
+```
+
 ### With Parameters
 
 ```vue
@@ -136,9 +181,9 @@ call({ userId: '123' })
 
 | Parameter | Type | Description |
 |----------|-----|----------|
-| cb | `(args?: Args) => Promise<void> \| void` | Main async function |
+| cb | `(args?: Args) => Promise<Data> \| Data` | Main async function |
 | defaultLoading | boolean | Initial loading state (default: false) |
-| catchCb | `(e: any) => Promise<void> \| void` | Error handler |
+| catchCb | `(e: any) => Promise<Errors> \| Errors` | Error handler |
 | finallyCb | `() => Promise<void> \| void` | Callback called after operation completion |
 
 ### Return Values
@@ -147,6 +192,8 @@ call({ userId: '123' })
 |----------|-----|----------|
 | call | `(args?: Args) => Promise<void> \| void` | Function to execute the operation |
 | isLoading | `Ref<boolean>` | Loading flag |
+| data | `Ref<Data>` | Reactive reference to the data returned from the API call. The type `Data` is automatically inferred from the return type of the `cb` function |
+| errors | `Ref<Errors>` | Reactive reference to the error data returned from the `catchCb` function. The type `Errors` is automatically inferred from the return type of the `catchCb` function |
 
 ### Plugin Options
 

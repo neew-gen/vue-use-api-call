@@ -1,5 +1,5 @@
-export type TApiCallArgs<Args, Errors> = {
-  cb: (args?: Args) => Promise<void> | void
+export type TApiCallArgs<Args, Data, Errors> = {
+  cb: (args?: Args) => Promise<Data> | Data
   defaultLoading?: boolean
   catchCb?: (e: any) => Promise<Errors> | Errors
   finallyCb?: () => Promise<void> | void

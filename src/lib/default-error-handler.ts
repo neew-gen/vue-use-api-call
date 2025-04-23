@@ -1,4 +1,4 @@
-import type { TErrorCb } from './types'
+import type { TErrorCb } from '../types'
 
 let defaultErrorCb: TErrorCb | null = null
 

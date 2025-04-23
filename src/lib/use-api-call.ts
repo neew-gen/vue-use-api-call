@@ -1,5 +1,5 @@
 import { ref } from 'vue'
-import type { TApiCallArgs } from './types'
+import type { TApiCallArgs } from '../types'
 import { getDefaultErrorCb } from './default-error-handler'
 
 export function useApiCall<Args = undefined>({

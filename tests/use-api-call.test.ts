@@ -69,6 +69,24 @@ describe('Plugin tests', () => {
     expect(mockCb).toHaveBeenCalled()
   })
 
+  it('should correctly handle data after successful API call', async () => {
+    const mockData = { id: 1, name: 'Test' }
+    const mockCb = vi.fn().mockResolvedValue(mockData)
+
+    install(app)
+
+    const { call, data } = useApiCall({
+      cb: mockCb,
+    })
+
+    expect(data.value).toEqual({})
+
+    await call()
+
+    expect(data.value).toEqual(mockData)
+    expect(mockCb).toHaveBeenCalled()
+  })
+
   it('should call finallyCb after successful execution', async () => {
     const mockCb = vi.fn()
     const mockFinallyCb = vi.fn()
@@ -141,20 +159,25 @@ describe('Plugin tests', () => {
     expect(customCatchCb).toHaveBeenCalledWith(error)
   })
 
-  it('should console.error when no error handlers are provided', async () => {
-    const consoleSpy = vi.spyOn(console, 'error')
+  it('should correctly handle error data from catchCb', async () => {
     const error = new Error('Test error')
+    const errorData = { code: 'ERROR_001', message: 'Test error message' }
+    const mockCatchCb = vi.fn().mockResolvedValue(errorData)
 
     install(app)
 
-    const { call } = useApiCall({
+    const { call, errors } = useApiCall({
       cb: async () => {
         throw error
       },
+      catchCb: mockCatchCb,
     })
+
+    expect(errors.value).toEqual({})
 
     await call()
 
-    expect(consoleSpy).toHaveBeenCalledWith(error)
+    expect(errors.value).toEqual(errorData)
+    expect(mockCatchCb).toHaveBeenCalledWith(error)
   })
 })

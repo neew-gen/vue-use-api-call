@@ -2,29 +2,30 @@ import { ref } from 'vue'
 import type { TApiCallArgs } from '../types'
 import { getDefaultErrorCb } from './default-error-handler'
 
-export function useApiCall<Args = undefined>({
+export function useApiCall<Args = undefined, Data = void, Errors = void>({
   cb,
   defaultLoading = false,
   catchCb,
   finallyCb,
-}: TApiCallArgs<Args>) {
+}: TApiCallArgs<Args, Errors>) {
   const isLoading = ref(defaultLoading)
+  const data = ref({} as Data)
+  const errors = ref({} as Errors)
 
   const call = async (args?: Args) => {
     if (!defaultLoading && isLoading.value) return
+
     try {
       isLoading.value = true
-      await cb(args as Args)
+      data.value = await cb(args as Args)
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
       if (catchCb) {
-        await catchCb(e)
+        errors.value = await catchCb(e)
       } else {
         const defaultErrorHandler = getDefaultErrorCb()
         if (defaultErrorHandler) {
           await defaultErrorHandler(e)
-        } else {
-          console.error(e)
         }
       }
     } finally {
@@ -36,5 +37,7 @@ export function useApiCall<Args = undefined>({
   return {
     call,
     isLoading,
+    data,
+    errors,
   }
 }

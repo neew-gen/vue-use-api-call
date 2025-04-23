@@ -1,8 +1,8 @@
-import type { TErrorCb } from '../types'
+import type { TDefaultErrorCb } from '../types'
 
-let defaultErrorCb: TErrorCb | null = null
+let defaultErrorCb: TDefaultErrorCb | null = null
 
-export const setDefaultErrorCb = (cb: TErrorCb | null) => {
+export const setDefaultErrorCb = (cb: TDefaultErrorCb | null) => {
   defaultErrorCb = cb
 }
 

@@ -2,7 +2,7 @@ import { ref } from 'vue'
 import { getDefaultErrorCb } from './default-error-handler'
 import type { TApiCallArgs } from './types'
 
-export function useApiCall<Args = undefined, Data = void, Errors = void>({
+export function useApiCall<Args = undefined, Data = void, Errors = null>({
   cb,
   defaultLoading = false,
   catchCb,
@@ -10,7 +10,7 @@ export function useApiCall<Args = undefined, Data = void, Errors = void>({
 }: TApiCallArgs<Args, Data, Errors>) {
   const isLoading = ref(defaultLoading)
   const data = ref({} as Data)
-  const errors = ref({} as Errors)
+  const errors = ref(null as Errors)
 
   const call = async (args?: Args) => {
     if (!defaultLoading && isLoading.value) return

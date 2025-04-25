@@ -172,7 +172,7 @@ describe('Plugin tests', () => {
       catchCb: mockCatchCb,
     })
 
-    expect(errors.value).toEqual({})
+    expect(errors.value).toEqual(null)
 
     await call()
 

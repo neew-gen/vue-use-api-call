@@ -12,11 +12,12 @@ export function useApiCall<Args = undefined, Data = void, Errors = null>({
   const data = ref({} as Data)
   const errors = ref(null as Errors)
 
-  const call = async (args?: Args) => {
+  const call = async (args?: Args, skipLoading = false) => {
     if (!defaultLoading && isLoading.value) return
 
     try {
-      isLoading.value = true
+      if (!skipLoading) isLoading.value = true
+
       data.value = await cb(args as Args)
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (e: any) {
@@ -29,7 +30,8 @@ export function useApiCall<Args = undefined, Data = void, Errors = null>({
         }
       }
     } finally {
-      isLoading.value = false
+      if (!skipLoading) isLoading.value = false
+
       await finallyCb?.()
     }
   }

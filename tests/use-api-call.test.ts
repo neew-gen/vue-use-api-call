@@ -194,4 +194,23 @@ describe('Plugin tests', () => {
 
     expect(mockCb).toHaveBeenCalledWith(mockArgs)
   })
+
+  it('should not change loading state when skipLoading is true', async () => {
+    const mockCb = vi.fn()
+    const initialLoadingState = false
+
+    install(app)
+
+    const { call, isLoading } = useApiCall({
+      cb: mockCb,
+      defaultLoading: initialLoadingState,
+    })
+
+    expect(isLoading.value).toBe(initialLoadingState)
+
+    await call(undefined, true)
+
+    expect(isLoading.value).toBe(initialLoadingState)
+    expect(mockCb).toHaveBeenCalled()
+  })
 })

@@ -1,6 +1,6 @@
 {
   "name": "vue-use-api-call",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "author": "neew-gen",
   "scripts": {
     "npm-install": "npm i",

@@ -9,7 +9,7 @@ export function useApiCall<Args = undefined, Data = void, Errors = null>({
   finallyCb,
 }: TApiCallArgs<Args, Data, Errors>) {
   const isLoading = ref<boolean>(defaultLoading)
-  const data = ref<Data | null>(null)
+  const data = ref(null as Data)
   const errors = ref<Errors | null>(null)
 
   const call = async (args?: Args, skipLoading = false): Promise<void> => {

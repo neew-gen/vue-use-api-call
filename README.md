@@ -190,10 +190,11 @@ call({ userId: '123' })
 
 | Property | Type | Description |
 |----------|-----|----------|
-| call | `(args?: Args, skipLoading = false) => Promise<void> \| void` | Function to execute the operation. The `skipLoading` parameter can be used to prevent showing loading state on subsequent calls, for example when you don't want to show loading screen on retry. |
+| call | `(args?: Args, skipLoading = false) => Promise<void>` | Function to execute the operation. The `skipLoading` parameter can be used to prevent showing loading state on subsequent calls, for example when you don't want to show loading screen on retry. |
 | isLoading | `Ref<boolean>` | Loading flag |
-| data | `Ref<Data>` | Reactive reference to the data returned from the API call. The type `Data` is automatically inferred from the return type of the `cb` function |
-| errors | `Ref<Errors>` | Reactive reference to the error data returned from the `catchCb` function. The type `Errors` is automatically inferred from the return type of the `catchCb` function |
+| data | `Ref<Data \| null>` | Reactive reference to the data returned from the API call. The type `Data` is automatically inferred from the return type of the `cb` function |
+| errors | `Ref<Errors \| null>` | Reactive reference to the error data returned from the `catchCb` function. The type `Errors` is automatically inferred from the return type of the `catchCb` function |
+| reset | `void` | Reset data, loading, errors to default value
 
 ### Plugin Options
 

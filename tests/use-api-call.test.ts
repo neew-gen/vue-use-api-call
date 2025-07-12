@@ -78,7 +78,7 @@ describe('Plugin tests', () => {
       cb: mockCb,
     })
 
-    expect(data.value).toEqual({})
+    expect(data.value).toEqual(null)
 
     await call()
 
@@ -212,5 +212,28 @@ describe('Plugin tests', () => {
 
     expect(isLoading.value).toBe(initialLoadingState)
     expect(mockCb).toHaveBeenCalled()
+  })
+
+  it('should reset data, errors, and loading state', async () => {
+    const mockData = { id: 1, name: 'Test' }
+    const mockCb = vi.fn().mockResolvedValue(mockData)
+    const initialLoadingState = true
+
+    install(app)
+
+    const { call, reset, isLoading, data, errors } = useApiCall({
+      cb: mockCb,
+      defaultLoading: initialLoadingState,
+    })
+
+    await call()
+    expect(data.value).toEqual(mockData)
+    expect(isLoading.value).toBe(false)
+
+    reset()
+
+    expect(isLoading.value).toBe(initialLoadingState)
+    expect(data.value).toEqual(null)
+    expect(errors.value).toEqual(null)
   })
 })

@@ -87,14 +87,13 @@ doSmth.call()
 import { useApiCall } from 'vue-use-api-call'
 
 // Data will be auto typed depends on type of fetching result
-const { isLoading, call, data } = useApiCall({
+const { isLoading, data } = useApiCall({
   cb: async () => {
     // Result of fetching will be stored in data variable
     return await fetch('https://api.example.com/fetch-smth')
-  }
+  },
+  callOnInit: true, // Will be fetched automatically without call() method
 })
-
-call()
 </script>
 
 ```
@@ -185,6 +184,7 @@ call({ userId: '123' })
 | defaultLoading | boolean | Initial loading state (default: false) |
 | catchCb | `(e: any) => Promise<Errors> \| Errors` | Error handler |
 | finallyCb | `() => Promise<void> \| void` | Callback called after operation completion |
+| callOnInit | boolean | Whether to automatically execute the operation when the composable is initialized (default: false) |
 
 ### Return Values
 

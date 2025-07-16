@@ -236,4 +236,45 @@ describe('Plugin tests', () => {
     expect(data.value).toEqual(null)
     expect(errors.value).toEqual(null)
   })
+
+  it('should call on init when callOnInit is true', async () => {
+    const mockCb = vi.fn()
+
+    install(app)
+
+    const { isLoading } = useApiCall({
+      cb: mockCb,
+      callOnInit: true,
+    })
+
+    expect(isLoading.value).toBe(true)
+  })
+
+  it('should not call on init when callOnInit is false', async () => {
+    const mockCb = vi.fn()
+
+    install(app)
+
+    useApiCall({
+      cb: mockCb,
+      callOnInit: false,
+    })
+
+    expect(mockCb).not.toHaveBeenCalled()
+  })
+
+  it('loading state should be true when callOnInit is true and defaultLoading is false', async () => {
+    const mockCb = vi.fn()
+
+    install(app)
+
+    const { isLoading } = useApiCall({
+      cb: mockCb,
+      callOnInit: true,
+      defaultLoading: false,
+    })
+
+    expect(mockCb).toHaveBeenCalled()
+    expect(isLoading.value).toBe(true)
+  })
 })

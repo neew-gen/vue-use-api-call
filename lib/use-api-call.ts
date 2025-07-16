@@ -7,13 +7,14 @@ export function useApiCall<Args = undefined, Data = void, Errors = null>({
   defaultLoading = false,
   catchCb,
   finallyCb,
+  callOnInit = false,
 }: TApiCallArgs<Args, Data, Errors>) {
-  const isLoading = ref<boolean>(defaultLoading)
+  const isLoading = ref<boolean>(defaultLoading || callOnInit)
   const data = ref(null as Data)
   const errors = ref<Errors | null>(null)
 
   const call = async (args?: Args, skipLoading = false): Promise<void> => {
-    if (!defaultLoading && isLoading.value) return
+    if (!defaultLoading && !callOnInit && isLoading.value) return
 
     try {
       if (!skipLoading) isLoading.value = true
@@ -41,6 +42,8 @@ export function useApiCall<Args = undefined, Data = void, Errors = null>({
     data.value = null
     errors.value = null
   }
+
+  if (callOnInit) call()
 
   return {
     call,

@@ -1,7 +1,16 @@
 import { ref } from 'vue'
 import { getDefaultErrorCb } from './default-error-handler'
-import type { TApiCallArgs } from './types'
+import type { TApiCallArgs, TApiCallReturn } from './types'
 
+export function useApiCall<Data = void>(
+  args: TApiCallArgs<undefined, Data, null>
+): TApiCallReturn<undefined, Data, null>
+export function useApiCall<Data = void, Errors = null>(
+  args: TApiCallArgs<undefined, Data, Errors>
+): TApiCallReturn<undefined, Data, Errors>
+export function useApiCall<Args, Data = void, Errors = null>(
+  args: TApiCallArgs<Args, Data, Errors>
+): TApiCallReturn<Args, Data, Errors>
 export function useApiCall<Args = undefined, Data = void, Errors = null>({
   cb,
   defaultLoading = false,
